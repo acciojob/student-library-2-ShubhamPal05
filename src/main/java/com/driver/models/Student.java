@@ -14,6 +14,7 @@ import java.util.Date;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table
 public class Student {
 
@@ -27,9 +28,6 @@ public class Student {
     private int age; // in case we want to check on the basis of age while issuing
 
     private String country;
-
-    public Student() {
-    }
 
     // alter table student add foreign key constraint card references Card(id)
 

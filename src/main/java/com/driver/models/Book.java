@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table
 public class Book {
 
@@ -42,7 +44,5 @@ public class Book {
     @JsonIgnoreProperties("book")
     private List<Transaction> transactions;
 
-    public Book() {
-    }
 }
 
