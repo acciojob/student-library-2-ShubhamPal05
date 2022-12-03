@@ -4,11 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@Table
+@Builder
 public class Card {
 
     @Id
@@ -33,6 +41,7 @@ public class Card {
     private List<Book> books;
 
     public Card(){
+        // Doubt: this is not working
         this.cardStatus = CardStatus.ACTIVATED;
     }
 }
