@@ -18,15 +18,15 @@ public class StudentController {
     public ResponseEntity<String> getStudentByEmail(@RequestParam("email") String email){
 
         Student stu = studentService.getDetailsByEmail(email);
-        return new ResponseEntity<>(stu.toString(), HttpStatus.OK);
-        //return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
+        //return new ResponseEntity<>(stu.toString(), HttpStatus.OK);
+        return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
     }
 
     @GetMapping("/student/studentById")
     public ResponseEntity<String> getStudentById(@RequestParam("id") int id){
         Student stu = studentService.getDetailsById(id);
-        return new ResponseEntity<>(stu.toString(), HttpStatus.OK);
-        //return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
+        //return new ResponseEntity<>(stu.toString(), HttpStatus.OK);
+        return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
     }
 
     @PostMapping("/student")
