@@ -22,31 +22,39 @@ public class BookService {
     AuthorRepository authorRepository;
 
     public void createBook(Book book){
-        book.setAvailable(true);
-        book = bookRepository2.save(book);
+
+        // Author author = authorRepository.findById(book.getAuthor().getId()).get();
+        // List<Book> bookList = author.getBooksWritten();
+
+        // if(bookList == null){
+        //     bookList = new ArrayList<>();
+        // }
+        // book.setAvailable(true);
+        // book = bookRepository2.save(book);
+        // bookList.add(book);
+        // author.setBooksWritten(bookList);
+        // authorRepository.save(author);
         Author author = book.getAuthor();
-        List<Book> bookList = author.getBooksWritten();
-        bookList.add(book);
-        author.setBooksWritten(bookList);
-        authorRepository.save(author);
+
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
-        List<Book> books = new ArrayList<>();
+        // List<Book> books = new ArrayList<>();
 
-        if(author == null && genre == null){
-            return bookRepository2.findByAvailability(available);
-        }
+        // if(author == null && genre == null){
+        //     return bookRepository2.findByAvailability(available);
+        // }
 
-        else if(author == null){
-            return bookRepository2.findBooksByGenre(genre, available);
-        }
-        else if(genre == null){
-            return bookRepository2.findBooksByAuthor(author, available);
-        }
-        else{
-            return books;
-        }
+        // else if(author == null){
+        //     return bookRepository2.findBooksByGenre(genre, available);
+        // }
+        // else if(genre == null){
+        //     return bookRepository2.findBooksByAuthor(author, available);
+        // }
+        // else{
+        //     return books;
+        // }
+        return null;
 
         // books = bookRepository2.findAll().stream().filter(book -> book.getGenre().toString().equals(genre)&&
         //                                                             book.getAuthor().toString().equals(author)&&

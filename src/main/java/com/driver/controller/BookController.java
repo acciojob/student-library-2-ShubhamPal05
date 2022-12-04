@@ -24,14 +24,13 @@ public class BookController {
         return new ResponseEntity<>("Success", HttpStatus.ACCEPTED);
     }
 
-    //NOT WORKING
     @GetMapping("/book")
     public ResponseEntity<List<Book>> getBooks(@RequestParam(value = "genre", required = false) String genre,
                                    @RequestParam(value = "available", required = false, defaultValue = "false") boolean available,
                                    @RequestParam(value = "author", required = false) String author){
 
         List<Book> bookList = bookService.getBooks(genre, available, author); //find the elements of the list by yourself
-
+        bookList =null;
         return new ResponseEntity<>(bookList, HttpStatus.OK);
 
     }
