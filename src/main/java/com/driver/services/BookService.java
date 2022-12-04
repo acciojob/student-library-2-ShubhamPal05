@@ -24,11 +24,25 @@ public class BookService {
     public List<Book> getBooks(String genre, boolean available, String author){
         List<Book> books = new ArrayList<>();
 
-        books = bookRepository2.findAll().stream().filter(book -> book.getGenre().toString().equals(genre)&&
-                                                                    book.getAuthor().toString().equals(author)&&
-                                                                    book.isAvailable())
-                                                                    .collect(Collectors.toList());
+        if(author == null && genre == null){
+            return bookRepository2.findByAvailability(available);
+        }
 
-        return books;
+        else if(author == null){
+            return bookRepository2.findBooksByGenre(genre, available);
+        }
+        else if(genre == null){
+            return bookRepository2.findBooksByAuthor(author, available);
+        }
+        else{
+            return books;
+        }
+
+        // books = bookRepository2.findAll().stream().filter(book -> book.getGenre().toString().equals(genre)&&
+        //                                                             book.getAuthor().toString().equals(author)&&
+        //                                                             book.isAvailable())
+        //                                                             .collect(Collectors.toList());
+
+        // return books;
     }
 }

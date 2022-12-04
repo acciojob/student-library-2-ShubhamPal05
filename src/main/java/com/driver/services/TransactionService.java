@@ -60,14 +60,22 @@ public class TransactionService {
         Book book = bookRepository5.findById(bookId).get();
         Card card = cardRepository5.findById(cardId).get();
 
-        if(book == null || !book.isAvailable())
+        if(book == null || !book.isAvailable()){
+            createNewTransaction(card, book, true, TransactionStatus.FAILED);
             throw new Exception("Book is either unavailable or not present");
-        
-        else if(card == null || card.getCardStatus().equals(CardStatus.DEACTIVATED))
-            throw new Exception("Card is invalid");
+        }
 
-        else if(card.getBooks().size() >= max_allowed_books)
+        
+        else if(card == null || card.getCardStatus().equals(CardStatus.DEACTIVATED)){
+            createNewTransaction(card, book, true, TransactionStatus.FAILED);
+            throw new Exception("Card is invalid");
+        }
+
+        else if(card.getBooks().size() >= max_allowed_books){
+            createNewTransaction(card, book, true, TransactionStatus.FAILED);
             throw new Exception("Book limit has reached for this card");
+        }
+
         else{
             //saving book in card
             List<Book> bookList = card.getBooks();
@@ -75,18 +83,20 @@ public class TransactionService {
             card.setBooks(bookList);
             cardRepository5.save(card);
             bookRepository5.save(book);
+            return createNewTransaction(card, book, true, TransactionStatus.SUCCESSFUL).getTransactionId();
+        }
 
-            Transaction transaction = Transaction.builder()
+    }
+    public Transaction createNewTransaction(Card card, Book book, boolean isIssue, TransactionStatus tStatus){
+        Transaction transaction = Transaction.builder()
                                             .card(card)
                                             .book(book)
-                                            .isIssueOperation(true)
-                                            .transactionStatus(TransactionStatus.SUCCESSFUL)
+                                            .isIssueOperation(isIssue)
+                                            .transactionStatus(tStatus)
                                             .build();
                 
             transaction = transactionRepository5.save(transaction);
-            return transaction.getTransactionId();
-        }
-
+            return transaction;
     }
 
     public Transaction returnBook(int cardId, int bookId) throws Exception{
