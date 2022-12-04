@@ -81,6 +81,7 @@ public class TransactionService {
             List<Book> bookList = card.getBooks();
             bookList.add(book);
             card.setBooks(bookList);
+            book.setAvailable(false);
             cardRepository5.save(card);
             bookRepository5.save(book);
             return createNewTransaction(card, book, true, TransactionStatus.SUCCESSFUL).getTransactionId();
@@ -88,15 +89,14 @@ public class TransactionService {
 
     }
     public Transaction createNewTransaction(Card card, Book book, boolean isIssue, TransactionStatus tStatus){
-        Transaction transaction = Transaction.builder()
-                                            .card(card)
-                                            .book(book)
-                                            .isIssueOperation(isIssue)
-                                            .transactionStatus(tStatus)
-                                            .build();
-                
-            transaction = transactionRepository5.save(transaction);
-            return transaction;
+
+        Transaction transaction = new Transaction();
+        transaction.setCard(card);
+        transaction.setBook(book);
+        transaction.setIssueOperation(isIssue);
+        transaction.setTransactionStatus(tStatus);
+        transaction = transactionRepository5.save(transaction);
+        return transaction;
     }
 
     public Transaction returnBook(int cardId, int bookId) throws Exception{
@@ -125,12 +125,7 @@ public class TransactionService {
         book.setAvailable(true);
 
         //make a new transaction for return book which contains the fine amount as well
-        Transaction newTransaction = Transaction.builder()
-        .card(card)
-        .book(book)
-        .isIssueOperation(false)
-        .transactionStatus(TransactionStatus.SUCCESSFUL)
-        .build();
+        Transaction newTransaction = createNewTransaction(card, book, false, TransactionStatus.SUCCESSFUL);
 
         newTransaction.setFineAmount(fine);
         newTransaction = transactionRepository5.save(newTransaction);
