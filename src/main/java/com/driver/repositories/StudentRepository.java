@@ -16,7 +16,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             "s.age = :#{#std.age} ," +
             "s.country = :#{#std.country} " +
             "where s.id = :#{#std.id}")
-    // @Query("update student set name=:#{#std.name}, set age=#{#std.age}, country = :#{#std.country}, email_id = :#{#std.emailId} where id=:#{#std.id}" , nativeQuery = true)
+    // @Query("update student u set u.name=:#{#std.name}, u.age=#{#std.age}, u.country = :#{#std.country}, u.email_id = :#{#std.emailId} where id=:#{#std.id}" , nativeQuery = true)
     int updateStudentDetails(Student std);
 
 

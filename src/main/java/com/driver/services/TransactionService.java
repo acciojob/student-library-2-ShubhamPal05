@@ -81,6 +81,7 @@ public class TransactionService {
             List<Book> bookList = card.getBooks();
             bookList.add(book);
             card.setBooks(bookList);
+            book.setCard(card);
             book.setAvailable(false);
             cardRepository5.save(card);
             bookRepository5.save(book);
@@ -113,17 +114,17 @@ public class TransactionService {
         LocalDate date2 = transaction.getTransactionDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         //calculating days between two temporal dates
-        long days = ChronoUnit.DAYS.between(date1, date2);
+        long days = ChronoUnit.DAYS.between(date2, date1);
 
         //int days =new Date().compareTo(transaction.getTransactionDate());
         int fine = 0;
         if(days > getMax_allowed_days){
-            fine = (int)(days-getMax_allowed_days)* fine_per_day;
+            fine = (int)(days - getMax_allowed_days)* fine_per_day;
         }
 
         //make the book available for other users
         book.setAvailable(true);
-
+        book.setCard(null);
         //make a new transaction for return book which contains the fine amount as well
         Transaction newTransaction = createNewTransaction(card, book, false, TransactionStatus.SUCCESSFUL);
 
