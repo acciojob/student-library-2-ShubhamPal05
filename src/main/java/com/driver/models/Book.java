@@ -48,10 +48,10 @@ public class Book {
 
     }
 
-    public Book(String name, Genre genre, boolean available){
+    public Book(String name, Genre genre, Author author){
         this.name = name;
         this.genre = genre;
-        this.available = available;
+        this.author = author;
     }
 }
 

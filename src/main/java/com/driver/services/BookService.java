@@ -17,7 +17,8 @@ public class BookService {
     BookRepository bookRepository2;
 
     public void createBook(Book book){
-        bookRepository2.save(book);
+        book.setAvailable(true);
+        book = bookRepository2.save(book);
     }
 
     public List<Book> getBooks(String genre, boolean available, String author){
