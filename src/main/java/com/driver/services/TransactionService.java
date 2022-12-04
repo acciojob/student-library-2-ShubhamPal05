@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 
 import ch.qos.logback.core.joran.conditional.ElseAction;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
 
@@ -94,10 +98,17 @@ public class TransactionService {
         Book book = bookRepository5.findById(bookId).get();
 
         //for the given transaction calculate the fine amount considering the book has been returned exactly when this function is called
-        int days =new Date().compareTo(transaction.getTransactionDate());
+        //converting new date to temporal
+        LocalDate date1 = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate date2 = transaction.getTransactionDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        //calculating days between two temporal dates
+        long days = ChronoUnit.DAYS.between(date1, date2);
+
+        //int days =new Date().compareTo(transaction.getTransactionDate());
         int fine = 0;
         if(days > getMax_allowed_days){
-            fine = (days-getMax_allowed_days)* fine_per_day;
+            fine = (int)(days-getMax_allowed_days)* fine_per_day;
         }
 
         //make the book available for other users

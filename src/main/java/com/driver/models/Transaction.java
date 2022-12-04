@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+// @NoArgsConstructor
 @Table
 @Builder
 public class Transaction {
@@ -46,5 +46,8 @@ public class Transaction {
 
     @CreationTimestamp
     private Date transactionDate;
-}
 
+    public Transaction(){
+
+    }
+}

@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+// @NoArgsConstructor
 @Table
 @Builder
 public class Card {
@@ -42,8 +42,8 @@ public class Card {
     @JsonIgnoreProperties("card")
     private List<Book> books;
 
-    // public Card(){
-    //     // Doubt: this is not working
-    //     this.cardStatus = CardStatus.ACTIVATED;
-    // }
+    public Card(){
+        // // Doubt: this is not working
+        // this.cardStatus = CardStatus.ACTIVATED;
+    }
 }
