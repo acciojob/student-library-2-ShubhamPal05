@@ -36,7 +36,6 @@ public class StudentService {
         return student;
     }
 
-    //doubt: why need to save twice ? if saving 
     public void createStudent(Student student){
         studentRepository4.save(student);
         Card card = cardService.createAndReturn(student);
@@ -47,23 +46,19 @@ public class StudentService {
     }
 
     public void updateStudent(Student student){
-        // Student stu = studentRepository4.findById(student.getId()).get();
-        // stu.setName(student.getName());
-        // stu.setAge(student.getAge());
-        // stu.setCountry(student.getCountry());
-        // stu.setEmailId(student.getEmailId());
 
-        // studentRepository4.save(stu);
         studentRepository4.updateStudentDetails(student);
 
         // studentRepository4.updateStudentDetails(student);
     }
 
     public void deleteStudent(int id){
-        Card card = studentRepository4.findById(id).get().getCard();
+        // Card card = studentRepository4.findById(id).get().getCard();
 
-        card.setCardStatus(CardStatus.DEACTIVATED);
-        cardRepository.save(card);
+        // card.setCardStatus(CardStatus.DEACTIVATED);
+        // cardRepository.save(card);
+        
+        cardService4.deactivateCard(id);
 
         studentRepository4.deleteCustom(id);
     }
