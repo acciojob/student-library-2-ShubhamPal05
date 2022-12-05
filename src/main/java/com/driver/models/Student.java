@@ -30,8 +30,8 @@ public class Student {
     private String country;
 
     // alter table student add foreign key constraint card references Card(id)
-
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    // @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn   // join this column to the primary key of Card table
     @JsonIgnoreProperties("student")
     private Card card;

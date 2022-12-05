@@ -40,20 +40,21 @@ public class StudentService {
     public void createStudent(Student student){
         studentRepository4.save(student);
         Card card = cardService.createAndReturn(student);
-        student.setCard(card);
-        studentRepository4.save(student);
-
+        studentRepository4.setCard(card.getId(), student.getId());
+        // student.setCard(card);
+        // studentRepository4.save(student);
+        
     }
 
     public void updateStudent(Student student){
-        Student stu = studentRepository4.findById(student.getId()).get();
-        stu.setName(student.getName());
-        stu.setAge(student.getAge());
-        stu.setCountry(student.getCountry());
-        stu.setEmailId(student.getEmailId());
+        // Student stu = studentRepository4.findById(student.getId()).get();
+        // stu.setName(student.getName());
+        // stu.setAge(student.getAge());
+        // stu.setCountry(student.getCountry());
+        // stu.setEmailId(student.getEmailId());
 
-        studentRepository4.save(stu);
-        //studentRepository4.updateStudentDetails(stu);
+        // studentRepository4.save(stu);
+        studentRepository4.updateStudentDetails(student);
 
         // studentRepository4.updateStudentDetails(student);
     }

@@ -25,7 +25,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("card")
     private Student student;
 

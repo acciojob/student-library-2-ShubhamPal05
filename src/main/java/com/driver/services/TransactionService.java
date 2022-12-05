@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -79,12 +80,15 @@ public class TransactionService {
         else{
             //saving book in card
             List<Book> bookList = card.getBooks();
+            if(bookList == null){
+                bookList = new ArrayList<>();
+            }
             bookList.add(book);
             card.setBooks(bookList);
             book.setCard(card);
             book.setAvailable(false);
-            cardRepository5.save(card);
             bookRepository5.save(book);
+            cardRepository5.save(card);
             return createNewTransaction(card, book, true, TransactionStatus.SUCCESSFUL).getTransactionId();
         }
 
