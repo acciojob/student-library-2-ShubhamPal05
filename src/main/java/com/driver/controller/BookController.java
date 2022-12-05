@@ -30,7 +30,6 @@ public class BookController {
                                    @RequestParam(value = "author", required = false) String author){
 
         List<Book> bookList = bookService.getBooks(genre, available, author); //find the elements of the list by yourself
-        bookList =null;
         return new ResponseEntity<>(bookList, HttpStatus.OK);
 
     }
